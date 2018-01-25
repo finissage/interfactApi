@@ -195,7 +195,7 @@ order by borrow_id
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/guassurance/`
+* 请求地址：`http://127.0.0.1:8080/guborrowmoneys/apply`
 * 请求方式：`POST`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -352,7 +352,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/guassurance/{borrowId}/apply`
+* 请求地址：`http://127.0.0.1:8080/guborrowmoneys/{borrowId}/apply`
 * 请求方式：`PUT`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -478,7 +478,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/guborrowmoney/{borrowId}/compact`
+* 请求地址：`http://127.0.0.1:8080/guborrowmoneys/{borrowId}/compact`
 * 请求方式：`GET`
 * 请求类型：`String`
 * 响应类型：`R`
@@ -607,7 +607,7 @@ assurance_id
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/guborrowmoney/{borrowId}/compact`
+* 请求地址：`http://127.0.0.1:8080/guborrowmoneys/{borrowId}/compact`
 * 请求方式：`PUT`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -702,7 +702,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/guborrowmoney/{borrowId}/apply`
+* 请求地址：`http://127.0.0.1:8080/guborrowmoneys/{borrowId}/apply`
 * 请求方式：`GET`
 * 请求类型：`String`
 * 响应类型：`R`
