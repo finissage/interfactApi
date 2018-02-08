@@ -14,7 +14,7 @@
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/guborrowmoneys/{type}/investigate`
+* 请求地址：`http://127.0.0.1:8080/sys/guborrowmoneys/{type}/investigate`
 * 请求方式：`GET`
 * 请求类型：`int`
 * 响应类型：`R`
@@ -93,7 +93,7 @@ and user_id in (select user_id from gguser where user_name like concat('%', 'use
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/guduediligence/{borrowId}`
+* 请求地址：`http://127.0.0.1:8080/sys/app/guduediligence/{borrowId}`
 * 请求方式：`POST`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -240,7 +240,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/bank/{borrowId}/audit`
+* 请求地址：`http://127.0.0.1:8080/sys/app/bank/{borrowId}/audit`
 * 请求方式：`PUT`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -311,7 +311,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/guborrowmoneys/contract`
+* 请求地址：`http://127.0.0.1:8080/sys/guborrowmoneys/contract`
 * 请求方式：`GET`
 * 请求类型：`String`
 * 响应类型：`R`
@@ -397,7 +397,7 @@ and user_id in (select user_id from gguser gu where user_name like concat('%', '
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/ggcredit/{borrewId}/credit`
+* 请求地址：`http://127.0.0.1:8080/sys/ggcredit/{borrewId}/credit`
 * 请求方式：`POST`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -466,7 +466,7 @@ values(
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/bank/{borrowId}/contract`
+* 请求地址：`http://127.0.0.1:8080/sys/bank/{borrowId}/contract`
 * 请求方式：`PUT`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -524,7 +524,7 @@ rate = ?, interest = ?, bank_id = ?, product_id = ?, user_id = ?,
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/bank/{borrowId}/contract`
+* 请求地址：`http://127.0.0.1:8080/sys/bank/{borrowId}/contract`
 * 请求方式：`PUT`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -565,7 +565,7 @@ rate = ?, interest = ?, bank_id = ?, product_id = ?, user_id = ?,
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/bank/{borrowId}`
+* 请求地址：`http://127.0.0.1:8080/sys/bank/{borrowId}`
 * 请求方式：`PUT`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -624,7 +624,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`127.0.0.1:8080/app/bank/apply`
+* 请求地址：`127.0.0.1:8080/sys/bank/apply`
 * 请求方式：`GET`
 * 请求类型：``
 * 响应类型：`R`
@@ -691,7 +691,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`127.0.0.1:8080/app/bank/apply`
+* 请求地址：`127.0.0.1:8080/sys/bank/apply`
 * 请求方式：`GET`
 * 请求类型：``
 * 响应类型：`R`
