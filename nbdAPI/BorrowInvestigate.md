@@ -14,7 +14,7 @@
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/guborrowmoneys/{type}/investigate`
+* 请求地址：`http://127.0.0.1:8080/bank/{type}/investigate`
 * 请求方式：`GET`
 * 请求类型：`int`
 * 响应类型：`R`
