@@ -400,7 +400,7 @@ and user_id in (select user_id from gguser gu where user_name like concat('%', '
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`/sys/ggcredit/{borrewId}/credit`
+* 请求地址：`/sys/bank/{borrewId}/credit`
 * 请求方式：`POST`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -523,111 +523,11 @@ rate = ?, interest = ?, bank_id = ?, product_id = ?, user_id = ?,
 
 ```
 ------------------
-## 放款列表
-
-#### 基本信息
-* 请求类型：`HTTP`
-* 请求地址：`/sys/bank/{borrowId}/contract`
-* 请求方式：`PUT`
-* 请求类型：`JSON`
-* 响应类型：`R`
-
-### 接口描述
-
-
-#### 请求数据
-|参数名称|是否必填|类型|长度|描述|默认值|备注|
-|:----:|:----:|:----:|:----:|:---:|:----:|:---:|
-
-
-
-#### 响应数据
-|参数名称|是否必填|描述|默认值|  
-|:----:|:----:|:----:|:----:|  
-
-
-### 实例
-#### 请求实体
-```json
-{
-
-}
-```
-
-#### 响应参数
-```json
-
-```
-
-### 数据库操作  
-```sql
-
-```
-------------------
-## 审贷
-
-#### 基本信息
-* 请求类型：`HTTP`
-* 请求地址：`/sys/bank/{borrowId}`
-* 请求方式：`PUT`
-* 请求类型：`JSON`
-* 响应类型：`R`
-
-### 接口描述
-
-
-#### 请求数据
-|参数名称|是否必填|类型|长度|描述|默认值|备注|
-|:----:|:----:|:----:|:----:|:---:|:----:|:---:|
-|token|√|String|| 登录验证|||
-|auditId|√|String|32| 审核对象|||
-|auditStatus|√|String|1| 审核状态||1,审核通过并通知 2,审核不通过 3,审核通过|
-|remark|√|String|200| 备注信息|||
-
-
-#### 响应数据
-|参数名称|是否必填|描述|默认值|  
-|:----:|:----:|:----:|:----:|  
-
-
-### 实例
-#### 请求实体
-```json
- {
-	"auditId": "15162432129967426183" ,
-	"auditStatus": "1" ,
-	"remark": "审核通过不通知" 
-}
-```
-
-#### 响应参数
-```json
-
-```
-
-### 数据库操作  
-```sql
-start transaction;
-
-update guapplymoney set 
-contract_no = ?, accept_name = ?, bank = ?, account_no = ?, amount = ?, user_id = ?, 
-bank_status = ?, assurance_status = ?, insurance_status = ?, agriculture_status = ?, 
-input_time = ?, updator = ?, update_time = ?, remark = ?, flag = ? 
-where apply_id = ? 
-
-
-insert into ggauditrecord (
-	audit_id, series_no, audit_code, audit_status, content, audit_time, flag, remark
-) values (?, ?, ?, ?, ?, ?, ?, ?) 
-
-commit;
-```
-------------------
 ## 借款申请列表
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`127.0.0.1:8080/sys/bank/apply`
+* 请求地址：`/sys/bank/apply`
 * 请求方式：`GET`
 * 请求类型：``
 * 响应类型：`R`
@@ -665,7 +565,37 @@ commit;
 
 #### 响应参数
 ```json
-
+{
+    "msg": "success",
+    "date": {
+        "total": 2,
+        "list": [
+            {
+                "borrowId": "15169506077438136950",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": null,
+                "startDate": "2018-01-26 15:09:49",
+                "borrowAmount": null,
+                "status": "1",
+                "borrowArrange": "12"
+            },
+            {
+                "borrowId": "15169506219702616984",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": null,
+                "startDate": "2018-01-26 15:10:03",
+                "borrowAmount": null,
+                "status": "1",
+                "borrowArrange": "12"
+            }
+        ],
+        "pageNum": 1,
+        "pageSize": 10,
+        "pages": 1,
+        "size": 2
+    },
+    "code": 200
+}
 ```
 
 ### 数据库操作  
@@ -694,7 +624,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`127.0.0.1:8080/sys/bank/apply`
+* 请求地址：`127.0.0.1:8080/sys/bank/finish`
 * 请求方式：`GET`
 * 请求类型：``
 * 响应类型：`R`
@@ -734,7 +664,69 @@ commit;
 
 #### 响应参数
 ```json
-
+{
+    "msg": "success",
+    "date": {
+        "total": 5,
+        "list": [
+            {
+                "borrowId": "15162430025263970647",
+                "contractNo": "1231654645",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": "王者理财方案",
+                "borrowAmount": null,
+                "startDate": "2018-01-18 10:35:27",
+                "endDate": "2018-01-18 10:35:27",
+                "status": "4"
+            },
+            {
+                "borrowId": "15162432129967426182",
+                "contractNo": "1231654645",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": "王者理财方案",
+                "borrowAmount": null,
+                "startDate": "2018-01-18 10:38:58",
+                "endDate": "2018-01-18 10:38:58",
+                "status": "4"
+            },
+            {
+                "borrowId": "15162432129967426183",
+                "contractNo": "1231654645",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": "王者理财方案",
+                "borrowAmount": null,
+                "startDate": "2018-01-18 10:38:58",
+                "endDate": "2018-01-18 10:38:58",
+                "status": "4"
+            },
+            {
+                "borrowId": "15168634611042822827",
+                "contractNo": "1231654645",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": null,
+                "borrowAmount": null,
+                "startDate": "2018-01-25 14:57:24",
+                "endDate": "2018-01-25 14:57:24",
+                "status": "2"
+            },
+            {
+                "borrowId": "15169479458845338537",
+                "contractNo": "1231654645",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": null,
+                "borrowAmount": null,
+                "startDate": "2018-01-26 14:25:27",
+                "endDate": "2018-01-26 14:25:27",
+                "status": "2"
+            }
+        ],
+        "pageNum": 1,
+        "pageSize": 10,
+        "pages": 1,
+        "size": 5
+    },
+    "code": 200
+}
 ```
 
 ### 数据库操作  
@@ -758,7 +750,6 @@ where
 	and user_id in (select user_id from gguser where user_name like concat('%',#{borrowName},'%'));
 ```
 ------------------
-<<<<<<< HEAD
 ## 根据id查询借款详情
 
 #### 基本信息
