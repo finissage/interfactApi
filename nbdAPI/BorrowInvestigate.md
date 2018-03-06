@@ -9,8 +9,9 @@
 #### [查询放款列表](#放款列表)
 #### [综合查询借款申请列表](#借款申请列表)
 #### [综合查询借款合同列表](#借款合同列表)
+#### [查看借款详情](#根据id查询借款详情)
 
-## 尽调审贷列表
+## 尽调/审贷列表
 
 #### 基本信息
 * 请求类型：`HTTP`
@@ -41,8 +42,8 @@
 |createTime|√|申请时间||
 |borrowAmount|√|借款金额||
 |borrowArrange|√|借款期限||
-|status|√|状态||
-
+|status|√|状态|0:草稿,1:待审核,2:审核不通过,3:审核通过并生成合同|
+|isInvestigate|√|是否尽调|false:未尽调 true:已尽调|
 
 ### 实例
 #### 请求实体
@@ -50,6 +51,7 @@
 #### 响应参数
 ```json
 {
+
     "msg": "success",
     "code": 200,
     "data": {
@@ -132,37 +134,38 @@ and user_id in (select user_id from gguser where user_name like concat('%', 'use
 #### 请求实体
 ```json
 {
-		"company": {
-			"type": "1", 
-			"creditTime": "2017-12-28 00:00:00", 
-			"finishNum": "10", 
-			"loanAmount": "500000", 
-			"loanNum": "1", 
-			"illegalAmount": "3000", 
-			"overdueNum": "1", 
-			"months": "3", 
-			"maxDueMonths": "4", 
-			"maxAmountPerMonth": "60000", 
-			"dueReport": null, 
-			"remark": null 
-			},
-		"person": {
-			"type": "2", 
-			"creditTime": "2017-12-28 00:00:00", 
-			"finishNum": "0", 
-			"loanAmount": "0", 
-			"loanNum": "0", 
-			"illegalAmount": "0", 
-			"overdueNum": "0", 
-			"months": "0", 
-			"maxDueMonths": "0", 
-			"maxAmountPerMonth": "0", 
-			"dueReport": null, 
-			"remark": null 
-		},
-		"remark": null,
-		"userId": "15264311168"
-	}
+	"dueReport": "asdfasdf",
+	"person": {
+		"illegalAmount": 123,
+		"overdueNum": 12,
+		"dueReport": "ASDasdsasda",
+		"loanNum": 1,
+		"months": 12,
+		"maxAmountPerMonth": 321353432,
+		"maxDueMonths": 1,
+		"remark": "asfasff",
+		"creditTime": 1520227891233,
+		"type": "1",
+		"finishNum": 12,
+		"loanAmount": 34623456
+	},
+	"company": {
+		"illegalAmount": 123,
+		"overdueNum": 12,
+		"dueReport": "ASDasdsasda",
+		"loanNum": 1,
+		"months": 12,
+		"maxAmountPerMonth": 321353432,
+		"maxDueMonths": 1,
+		"remark": "asfasff",
+		"creditTime": 1520227891231,
+		"type": "1",
+		"finishNum": 12,
+		"loanAmount": 34623456
+	},
+	"remark": "asdfasdf",
+	"userId": "asdfasdf"
+}
 ```
 #### 响应参数
 ```json
@@ -686,7 +689,7 @@ contract_no is null
         and user_id in (select user_id from gguser where user_name like concat('%',#{borrowName},'%'));
 commit;
 ```
-------------------
+-----------------
 ## 借款合同列表
 
 #### 基本信息
@@ -755,3 +758,255 @@ where
 	and user_id in (select user_id from gguser where user_name like concat('%',#{borrowName},'%'));
 ```
 ------------------
+## 根据id查询借款详情
+
+#### 基本信息
+* 请求类型：`HTTP`
+* 请求地址：`/sys/bank/{borrowId}/borrow`
+* 请求方式：`GET`
+* 请求类型：`String`
+* 响应类型：`R`
+
+### 接口描述
+
+
+#### 请求数据
+|参数名称|是否必填|类型|长度|描述|默认值|备注|
+|:----:|:----:|:----:|:----:|:---:|:----:|:---:|
+|token|√|String|| 登录验证|||
+|borrowId|√|String||查询id|
+
+#### 响应数据
+|参数名称|是否必填|描述|默认值|  
+|:----:|:----:|:----:|:----:|  
+|bankId| √ | 银行||
+|productId| √ | 产品||
+|rate| √ | 利率||
+|borrowAmount| √ | 借款金额||
+|remark|  | 备注||
+|letter|  | 推荐函||
+|policyMain|  | 保险||
+|assurance|  | 担保||
+|managerCards|  | 经营证照||
+|contracts|  | 购销合同||
+|financials|  | 财务报表||
+|invoices|  | 发票列表||
+|assets|  | 资产列表||
+|images|  | 其他资料||
+|cardId|| 资证id||
+|cardName|| 证件名称||
+|companyName|| 公司名称||
+|cardType|| 类型||
+|cardNo|| 证件编号||
+|endDate|| 证件有效期||
+|remark|| 备注||
+|contractId|| 编码||
+|partnerId|| 合作对象||
+|contractType|| 合作关系||
+|startDate|| 合作开始日期||
+|endDate|| 开做结束日期||
+|contractAmount|| 合同金额||
+|linkType|| 联系电话||
+|id|| 报表id||
+|chartTime|| 年,月||
+|remark|| 备注||
+|inputTime|| 创建时间||
+|contractId||编号||
+|invoiceCode||发票代码||
+|invoiceNo||发票号码||
+|invoiceAmount||发票金额||
+|createDate||开票日期||
+|invoiceHeader||发票抬头||
+|remark||备注||||
+|assetId|| 编号||
+|assetHolder|| 产权人||
+|assetType|| 产权关系||
+|assetNature||  产权性质||
+|province||省||
+|city||市||
+|county||区||
+|town||城镇||
+|village||街道||
+|address||详细地址||
+|area||  面积||
+|futurePrice|| 预估值||
+|mortgageAmount|| 抵押金额||
+|netWorth|| 净值||
+
+### 实例
+#### 请求实体
+```json
+```
+#### 响应参数
+```json
+{
+    "msg": "success",
+    "code": 200,
+    "data": {
+        "bankId": "15154930825582067531",
+        "productId": "15154930825584651576",
+        "rate": 2.17,
+        "borrowAmount": 500000,
+        "remark": "asdfadfasd",
+        "letter": "1234458676754321",
+        "policyMain": "12424523454758",
+        "assurance": "2133445697",
+        "managerCards": [
+			{
+				"cardId": "",
+				"cardName": "",
+				"companyName": "",
+				"cardType": "",
+				"cardNo": "",
+				"endDate": "",
+				"remark": ""
+			},
+			{
+				"cardId": "",
+				"cardName": "",
+				"companyName": "",
+				"cardType": "",
+				"cardNo": "",
+				"endDate": "",
+				"remark": ""
+			}
+        ],
+        "contracts": [
+			{
+				"contractId": "",
+				"partnerId": "",
+				"contractType": "",
+				"startDate": "",
+				"endDate": "",
+				"contractAmount": "",
+				"linkType": ""
+			},
+			{
+				"contractId": "",
+				"partnerId": "",
+				"contractType": "",
+				"startDate": "",
+				"endDate": "",
+				"contractAmount": "",
+				"linkType": ""
+			}
+        ],
+        "financials": [
+			{
+				"id": "",
+				"chartTime": "",
+				"remark": "",
+				"inputTime": ""
+			},
+			{
+				"id": "",
+				"chartTime": "",
+				"remark": "",
+				"inputTime": ""
+			}
+        ],
+        "invoices": [
+	        {
+	        	"contractId":"", 
+				"invoiceCode":"", 
+				"invoiceNo":"", 
+				"invoiceAmount":"", 
+				"createDate":"", 
+				"invoiceHeader":"", 
+				"remark":""
+	        },
+			{
+	        	"contractId":"", 
+				"invoiceCode":"", 
+				"invoiceNo":"", 
+				"invoiceAmount":"", 
+				"createDate":"", 
+				"invoiceHeader":"", 
+				"remark":""
+	        }
+		
+        ],
+        "assetVos": [
+			{
+				"assetId": "",
+				"assetHolder": "",
+				"assetType": "",
+				"assetNature": "",
+				"province": "",
+				"city": "",
+				"county": "",
+				"town": "",
+				"village": "",
+				"address": "",
+				"area": "",
+				"futurePrice": "",
+				"mortgageAmount": "",
+				"netWorth": ""
+			},
+			{
+				"assetId": "",
+				"assetHolder": "",
+				"assetType": "",
+				"assetNature": "",
+				"province": "",
+				"city": "",
+				"county": "",
+				"town": "",
+				"village": "",
+				"address": "",
+				"area": "",
+				"futurePrice": "",
+				"mortgageAmount": "",
+				"netWorth": ""
+			}
+        ],
+        "images": [
+            {
+                "fileName": "file1"
+            },
+            {
+                "filePath": "filepaths1"
+            }
+        ]
+    }
+}
+```
+
+### 数据库操作  
+```sql
+start transaction;
+select 
+	borrow_id
+	contract_no,
+	borrow_amount,
+	rate,
+	bank_id,
+	product_id,
+	user_id,
+	borrow_arrange,
+	create_time,
+	start_date,
+	end_date,
+	letter_id,
+	policy_id,
+	assurance_id,
+	contract_img,
+	cert_id,
+	status,
+	record_address,
+	updator,
+	update_time,
+	remark,
+	flag 
+from 
+	guborrowmoney 
+where borrow_id = '1234567899867564'
+
+select * from ggmanagercard where id in ("132312312","123123124236", "1234543534");  -- 资政表
+select * from ggcontract where id in ("132312312","123123124236", "1234543534");  -- 合同
+select * from ggfinancial where id in ("132312312","123123124236", "1234543534");  -- 财务报表
+select * from gginvoice where id in ("132312312","123123124236", "1234543534");  -- 发票
+select * from ggasset where id in ("132312312","123123124236", "1234543534");  -- 资产
+
+commit;
+```

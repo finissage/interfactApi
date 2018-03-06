@@ -1,4 +1,4 @@
-# 申请借款  
+# 申请借款 **个人中心**  
 ####  [查询(申请)列表](#查询申请列表)  
 ####  [查询(合同)列表](#查询合同列表)  
 ####  [增加申请借款](#保存申请借款)  
@@ -12,14 +12,14 @@
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/guborrowmoneys/apply`
+* 请求地址：`/app/guborrowmoneys/apply`
 * 请求方式：`GET`
 * 请求类型：`int`
 * 响应类型：`R`
 
 ### 接口描述
-根据企业id 查询所有借款申请列表
-状态为申请范围内
+> 根据企业id 查询所有借款申请列表
+> 状态为申请范围内
 
 #### 请求数据
 
@@ -48,21 +48,37 @@
     "msg": "success",
     "code": 200,
     "data": {
-        "total": 1,
+        "total": 4,
         "list": [
             {
-                "borrowId": "15154979522381392010",
-                "userName": "张三",
-                "createTime": "2018-01-09 19:39:12",
-                "borrowAmount": 6000000,
+                "borrowId": "15169506077438136950",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "createTime": "2018-01-26 15:10:07",
+                "borrowAmount": null,
                 "borrowArrange": 12,
                 "status": "0"
             },
             {
-                "borrowId": "15154979522381392010",
-                "userName": "张三",
-                "createTime": "2018-01-09 19:39:12",
-                "borrowAmount": 6000000,
+                "borrowId": "15169506219702616984",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "createTime": "2018-01-26 15:10:21",
+                "borrowAmount": null,
+                "borrowArrange": 12,
+                "status": "0"
+            },
+            {
+                "borrowId": "15169508075017460594",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "createTime": "2018-01-26 15:13:27",
+                "borrowAmount": null,
+                "borrowArrange": 12,
+                "status": "0"
+            },
+            {
+                "borrowId": "15169508106372877071",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "createTime": "2018-01-26 15:13:30",
+                "borrowAmount": null,
                 "borrowArrange": 12,
                 "status": "0"
             }
@@ -70,7 +86,7 @@
         "pageNum": 1,
         "pageSize": 10,
         "pages": 1,
-        "size": 1
+        "size": 4
     }
 }
 ```
@@ -78,18 +94,19 @@
 ### 数据库操作  
 ```sql
 select
-    borrow_id AS borrowId,
-    borrow_amount as borrowAmount,
-    (select gu.user_name from gguser gu where gu.user_id = gb.user_id) as userName,
-    borrow_arrange as borrowArrange,
-    create_time as createTime,
-    status as status,
-    record_address
-from guborrowmoney gb
-where user_id = 'userId'  -- 查询 本用户下
-and status in ('0', '1', '2', '3') -- 状态为 2.审核不通过（合同） 3审核通过并生成合同,4申请放款,5放款完成
-order by borrow_id
-
+        borrow_id AS borrowId,
+            application_amount as approvedAmount,
+            (select gu.user_name from gguser gu where gu.user_id = gb.user_id) as userName,
+            borrow_arrange as borrowArrange,
+            approved_amount as approvedAmount,
+            create_time as createTime,
+            status as status,
+            record_address
+        from guborrowmoney gb
+        where user_id = #{userId} -- 查询 本用户下
+        and contract_no is null
+        and status in ('0', '1', '2', '3') -- 状态为 2.审核不通过（合同） 3审核通过并生成合同,4申请放款,5放款完成
+        order by borrow_id
 ```
 ------------------
 
@@ -97,7 +114,7 @@ order by borrow_id
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/guborrowmoneys/compact`
+* 请求地址：`/app/guborrowmoneys/compact`
 * 请求方式：`GET`
 * 请求类型：`int`
 * 响应类型：`R`
@@ -136,35 +153,49 @@ order by borrow_id
     "msg": "success",
     "code": 200,
     "data": {
-        "total": 1,
+        "total": 3,
         "list": [
             {
-                "borrowId": "15154979522381392010",
-                "contractNo": "3452452345234523412",
-                "userName": "张三",
-                "bankName": null,
-                "createTime": "2018-01-09 19:39:12",
-                "borrowAmount": 6000000,
+                "borrowId": "15162430025263970647",
+                "contractNo": "1231654645",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "bankName": "交通银行",
+                "createTime": "2018-01-18 10:36:42",
+                "borrowAmount": null,
+                "approvedAmount": 6000000,
                 "rate": 2.17,
                 "borrowArrange": 12,
-                "status": "0"
+                "status": "4"
             },
             {
-                "borrowId": "15154979522381392010",
-                "contractNo": "3452452345234523412",
-                "userName": "张三",
-                "bankName": null,
-                "createTime": "2018-01-09 19:39:12",
-                "borrowAmount": 6000000,
+                "borrowId": "15162432129967426182",
+                "contractNo": "1231654645",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "bankName": "交通银行",
+                "createTime": "2018-01-18 10:40:12",
+                "borrowAmount": null,
+                "approvedAmount": 5000000,
                 "rate": 2.17,
-                "borrowArrange": 12,
-                "status": "0"
+                "borrowArrange": 8,
+                "status": "4"
+            },
+            {
+                "borrowId": "15162432129967426183",
+                "contractNo": "1231654645",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "bankName": "工商银行",
+                "createTime": "2018-01-18 10:40:12",
+                "borrowAmount": null,
+                "approvedAmount": 5000000,
+                "rate": 2.17,
+                "borrowArrange": 8,
+                "status": "4"
             }
         ],
         "pageNum": 1,
         "pageSize": 10,
         "pages": 1,
-        "size": 1
+        "size": 3
     }
 }
 ```
@@ -185,7 +216,7 @@ select
     record_address
 from guborrowmoney gb
 where user_id = 'userId'
-and contract_no not null  -- 查询合同号不能为 null 的
+and contract_no is not null  -- 查询合同号不能为 null 的
 and status in ('2', 3', '4', '5') -- 状态为 2.审核不通过（合同） 3审核通过并生成合同,4申请放款,5放款完成
 order by borrow_id
 ```  
@@ -195,7 +226,7 @@ order by borrow_id
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/guborrowmoneys/apply`
+* 请求地址：`/app/guborrowmoneys/apply`
 * 请求方式：`POST`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -352,7 +383,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/guborrowmoneys/{borrowId}/apply`
+* 请求地址：`/app/guborrowmoneys/{borrowId}/apply`
 * 请求方式：`PUT`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -477,8 +508,8 @@ commit;
 ## 根据id查询借款合同
 
 #### 基本信息
-* 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/guborrowmoneys/{borrowId}/compact`
+* 请求协议：`HTTP`
+* 请求地址：`/app/guborrowmoneys/{borrowId}/compact`
 * 请求方式：`GET`
 * 请求类型：`String`
 * 响应类型：`R`
@@ -702,7 +733,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/guborrowmoneys/{borrowId}/apply`
+* 请求地址：`/app/guborrowmoneys/{borrowId}/apply`
 * 请求方式：`GET`
 * 请求类型：`String`
 * 响应类型：`R`
