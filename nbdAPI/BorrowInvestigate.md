@@ -15,7 +15,11 @@
 
 #### 基本信息
 * 请求类型：`HTTP`
+<<<<<<< HEAD
 * 请求地址：`http://127.0.0.1:8080/sys/guborrowmoneys/{type}/investigate`
+=======
+* 请求地址：`http://127.0.0.1:8080/bank/{type}/investigate`
+>>>>>>> 4055698a8008d1bd8f4e91080e2fb8cef022d495
 * 请求方式：`GET`
 * 请求类型：`int`
 * 响应类型：`R`
@@ -758,6 +762,7 @@ where
 	and user_id in (select user_id from gguser where user_name like concat('%',#{borrowName},'%'));
 ```
 ------------------
+<<<<<<< HEAD
 ## 根据id查询借款详情
 
 #### 基本信息
@@ -1010,3 +1015,5 @@ select * from ggasset where id in ("132312312","123123124236", "1234543534");  -
 
 commit;
 ```
+=======
+>>>>>>> 4055698a8008d1bd8f4e91080e2fb8cef022d495
