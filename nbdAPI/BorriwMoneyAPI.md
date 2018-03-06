@@ -822,131 +822,129 @@ commit;
     "msg": "success",
     "code": 200,
     "data": {
-        "bankId": "15154930825582067531",
-        "productId": "15154930825584651576",
-        "rate": 2.17,
-        "borrowAmount": 500000,
+        "bankId": "15161843217798364881",
+        "productId": null,
+        "rate": 1.5,
+        "borrowAmount": null,
         "remark": "asdfadfasd",
-        "letter": "1234458676754321",
-        "policyMain": "12424523454758",
-        "assurance": "2133445697",
+        "letter": {
+            "letterId": "201801200001",
+            "referrer": "nongwei",
+            "accepter": "123123",
+            "startDate": "2018-01-20 00:00:00",
+            "endDate": "2018-02-20 00:00:00",
+            "isTakeEffect": "无效"
+        },
+        "policyMain": {
+            "businessNo": "15155516905141164280",
+            "riskCode": "1234",
+            "insureAppli": "15264311168",
+            "insuredCode": "c0a86a52c2ae44b4979a5ca8",
+            "amount": 2000000,
+            "status": "5"
+        },
+        "assurance": {
+            "assureId": "654780",
+            "productType": "4567",
+            "userName": "15264311168",
+            "assureCompany": "456456",
+            "assureAmount": 20000,
+            "status": "4"
+        },
         "managerCards": [
-			{
-				"cardId": "",
-				"cardName": "",
-				"companyName": "",
-				"cardType": "",
-				"cardNo": "",
-				"endDate": "",
-				"remark": ""
-			},
-			{
-				"cardId": "",
-				"cardName": "",
-				"companyName": "",
-				"cardType": "",
-				"cardNo": "",
-				"endDate": "",
-				"remark": ""
-			}
+            {
+                "cardId": "15160118706999703465",
+                "cardName": "营业执照",
+                "companyName": "贵州省马大姐食品股份有限公司",
+                "cardType": "01",
+                "cardNo": "1234587",
+                "endDate": "2017-12-31 00:00:00",
+                "remark": "备注"
+            }
         ],
         "contracts": [
-			{
-				"contractId": "",
-				"partnerId": "",
-				"contractType": "",
-				"startDate": "",
-				"endDate": "",
-				"contractAmount": "",
-				"linkType": ""
-			},
-			{
-				"contractId": "",
-				"partnerId": "",
-				"contractType": "",
-				"startDate": "",
-				"endDate": "",
-				"contractAmount": "",
-				"linkType": ""
-			}
+            {
+                "contractId": "15160133073853215176",
+                "partnerId": "撒打算",
+                "contractType": "供应商",
+                "startDate": null,
+                "endDate": null,
+                "contractAmount": null,
+                "linkType": ""
+            }
         ],
         "financials": [
-			{
-				"id": "",
-				"chartTime": "",
-				"remark": "",
-				"inputTime": ""
-			},
-			{
-				"id": "",
-				"chartTime": "",
-				"remark": "",
-				"inputTime": ""
-			}
-        ],
-        "invoices": [
-	        {
-	        	"contractId":"", 
-				"invoiceCode":"", 
-				"invoiceNo":"", 
-				"invoiceAmount":"", 
-				"createDate":"", 
-				"invoiceHeader":"", 
-				"remark":""
-	        },
-			{
-	        	"contractId":"", 
-				"invoiceCode":"", 
-				"invoiceNo":"", 
-				"invoiceAmount":"", 
-				"createDate":"", 
-				"invoiceHeader":"", 
-				"remark":""
-	        }
-		
-        ],
-        "assetVos": [
-			{
-				"assetId": "",
-				"assetHolder": "",
-				"assetType": "",
-				"assetNature": "",
-				"province": "",
-				"city": "",
-				"county": "",
-				"town": "",
-				"village": "",
-				"address": "",
-				"area": "",
-				"futurePrice": "",
-				"mortgageAmount": "",
-				"netWorth": ""
-			},
-			{
-				"assetId": "",
-				"assetHolder": "",
-				"assetType": "",
-				"assetNature": "",
-				"province": "",
-				"city": "",
-				"county": "",
-				"town": "",
-				"village": "",
-				"address": "",
-				"area": "",
-				"futurePrice": "",
-				"mortgageAmount": "",
-				"netWorth": ""
-			}
-        ],
-        "images": [
             {
-                "fileName": "file1"
+                "id": "",
+                "chartTime": "",
+                "remark": "",
+                "inputTime": ""
             },
             {
-                "filePath": "filepaths1"
+                "id": "",
+                "chartTime": "",
+                "remark": "",
+                "inputTime": ""
             }
-        ]
+        ],
+        "invoices": [
+            {
+                "contractId":"", 
+                "invoiceCode":"", 
+                "invoiceNo":"", 
+                "invoiceAmount":"", 
+                "createDate":"", 
+                "invoiceHeader":"", 
+                "remark":""
+            },
+            {
+                "contractId":"", 
+                "invoiceCode":"", 
+                "invoiceNo":"", 
+                "invoiceAmount":"", 
+                "createDate":"", 
+                "invoiceHeader":"", 
+                "remark":""
+            }
+        
+        ],
+        "assets": [
+            {
+                "assetId": "",
+                "assetHolder": "",
+                "assetType": "",
+                "assetNature": "",
+                "province": "",
+                "city": "",
+                "county": "",
+                "town": "",
+                "village": "",
+                "address": "",
+                "area": "",
+                "futurePrice": "",
+                "mortgageAmount": "",
+                "netWorth": ""
+            },
+            {
+                "assetId": "",
+                "assetHolder": "",
+                "assetType": "",
+                "assetNature": "",
+                "province": "",
+                "city": "",
+                "county": "",
+                "town": "",
+                "village": "",
+                "address": "",
+                "area": "",
+                "futurePrice": "",
+                "mortgageAmount": "",
+                "netWorth": ""
+            }
+        ],
+        "images": {
+            "identity": "789795"
+        }
     }
 }
 ```
