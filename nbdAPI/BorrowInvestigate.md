@@ -6,21 +6,23 @@
 #### [授信签约列表](#授信签约)
 #### [添加授信](#授信)
 #### [添加签约](#签约)
-#### [查询放款列表](#待放款列表)
+#### [查询放款列表](#放款列表)
 #### [综合查询借款申请列表](#借款申请列表)
 #### [综合查询借款合同列表](#借款合同列表)
-#### [查看借款详情](#根据id查询借款详情)
 
-## 尽调/审贷列表
+## 尽调审贷列表
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`/sys/guborrowmoneys/{type}/investigate`
+* 请求地址：`http://ip/sys/bank/{type}/investigate`
 * 请求方式：`GET`
 * 请求类型：`int`
 * 响应类型：`R`
 
 ### 接口描述
+根据类型和借款人名称模糊查询申请列表
+type 是审核状态
+borrowName 是用户输入的借款人名称
 
 #### 请求数据
 |参数名称|是否必填|类型|长度|描述|默认值|备注|
@@ -42,16 +44,16 @@
 |createTime|√|申请时间||
 |borrowAmount|√|借款金额||
 |borrowArrange|√|借款期限||
-|status|√|状态|0:草稿,1:待审核,2:审核不通过,3:审核通过并生成合同|
-|isInvestigate|√|是否尽调|false:未尽调 true:已尽调|
+|status|√|状态||
+
 
 ### 实例
 #### 请求实体
 
+
 #### 响应参数
 ```json
 {
-
     "msg": "success",
     "code": 200,
     "data": {
@@ -65,7 +67,7 @@
                 "borrowAmount": 6000000,
                 "borrowArrange": 12,
                 "status": "1",
-                "investigate": true
+                "investigate": true  
             }
         ],
         "pageNum": 1,
@@ -91,11 +93,11 @@ and user_id in (select user_id from gguser where user_name like concat('%', 'use
 ```
 ------------------
 
-## 尽调
+## 添加企业尽调
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`/sys/app/guduediligence/{borrowId}`
+* 请求地址：`http://127.0.0.1:8080/app/guduediligence/{borrowId}`
 * 请求方式：`POST`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -134,38 +136,37 @@ and user_id in (select user_id from gguser where user_name like concat('%', 'use
 #### 请求实体
 ```json
 {
-	"dueReport": "asdfasdf",
-	"person": {
-		"illegalAmount": 123,
-		"overdueNum": 12,
-		"dueReport": "ASDasdsasda",
-		"loanNum": 1,
-		"months": 12,
-		"maxAmountPerMonth": 321353432,
-		"maxDueMonths": 1,
-		"remark": "asfasff",
-		"creditTime": 1520227891233,
-		"type": "1",
-		"finishNum": 12,
-		"loanAmount": 34623456
-	},
-	"company": {
-		"illegalAmount": 123,
-		"overdueNum": 12,
-		"dueReport": "ASDasdsasda",
-		"loanNum": 1,
-		"months": 12,
-		"maxAmountPerMonth": 321353432,
-		"maxDueMonths": 1,
-		"remark": "asfasff",
-		"creditTime": 1520227891231,
-		"type": "1",
-		"finishNum": 12,
-		"loanAmount": 34623456
-	},
-	"remark": "asdfasdf",
-	"userId": "asdfasdf"
-}
+		"company": {
+			"type": "1", 
+			"creditTime": "2017-12-28 00:00:00", 
+			"finishNum": "10", 
+			"loanAmount": "500000", 
+			"loanNum": "1", 
+			"illegalAmount": "3000", 
+			"overdueNum": "1", 
+			"months": "3", 
+			"maxDueMonths": "4", 
+			"maxAmountPerMonth": "60000", 
+			"dueReport": null, 
+			"remark": null 
+			},
+		"person": {
+			"type": "2", 
+			"creditTime": "2017-12-28 00:00:00", 
+			"finishNum": "0", 
+			"loanAmount": "0", 
+			"loanNum": "0", 
+			"illegalAmount": "0", 
+			"overdueNum": "0", 
+			"months": "0", 
+			"maxDueMonths": "0", 
+			"maxAmountPerMonth": "0", 
+			"dueReport": null, 
+			"remark": null 
+		},
+		"remark": null,
+		"userId": "15264311168"
+	}
 ```
 #### 响应参数
 ```json
@@ -243,7 +244,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`/sys/app/bank/{borrowId}/audit`
+* 请求地址：`http://127.0.0.1:8080/sys/bank/{borrowId}/audit`
 * 请求方式：`PUT`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -314,7 +315,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`/sys/guborrowmoneys/contract`
+* 请求地址：`http://127.0.0.1:8080/guborrowmoneys/contract`
 * 请求方式：`GET`
 * 请求类型：`String`
 * 响应类型：`R`
@@ -400,7 +401,7 @@ and user_id in (select user_id from gguser gu where user_name like concat('%', '
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`/sys/bank/{borrewId}/credit`
+* 请求地址：`http://127.0.0.1:8080/app/ggcredit/{borrewId}/credit`
 * 请求方式：`POST`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -469,7 +470,7 @@ values(
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`/sys/bank/{borrowId}/contract`
+* 请求地址：`http://127.0.0.1:8080/sys/bank/{borrowId}/contract`
 * 请求方式：`PUT`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -523,11 +524,111 @@ rate = ?, interest = ?, bank_id = ?, product_id = ?, user_id = ?,
 
 ```
 ------------------
+## 放款列表
+
+#### 基本信息
+* 请求类型：`HTTP`
+* 请求地址：`http://127.0.0.1:8080/sys/bank/{borrowId}/contract`
+* 请求方式：`PUT`
+* 请求类型：`JSON`
+* 响应类型：`R`
+
+### 接口描述
+
+
+#### 请求数据
+|参数名称|是否必填|类型|长度|描述|默认值|备注|
+|:----:|:----:|:----:|:----:|:---:|:----:|:---:|
+
+
+
+#### 响应数据
+|参数名称|是否必填|描述|默认值|  
+|:----:|:----:|:----:|:----:|  
+
+
+### 实例
+#### 请求实体
+```json
+{
+
+}
+```
+
+#### 响应参数
+```json
+
+```
+
+### 数据库操作  
+```sql
+
+```
+------------------
+## 审贷
+
+#### 基本信息
+* 请求类型：`HTTP`
+* 请求地址：`http://127.0.0.1:8080/app/bank/{borrowId}`
+* 请求方式：`PUT`
+* 请求类型：`JSON`
+* 响应类型：`R`
+
+### 接口描述
+
+
+#### 请求数据
+|参数名称|是否必填|类型|长度|描述|默认值|备注|
+|:----:|:----:|:----:|:----:|:---:|:----:|:---:|
+|token|√|String|| 登录验证|||
+|auditId|√|String|32| 审核对象|||
+|auditStatus|√|String|1| 审核状态||1,审核通过并通知 2,审核不通过 3,审核通过|
+|remark|√|String|200| 备注信息|||
+
+
+#### 响应数据
+|参数名称|是否必填|描述|默认值|  
+|:----:|:----:|:----:|:----:|  
+
+
+### 实例
+#### 请求实体
+```json
+ {
+	"auditId": "15162432129967426183" ,
+	"auditStatus": "1" ,
+	"remark": "审核通过不通知" 
+}
+```
+
+#### 响应参数
+```json
+
+```
+
+### 数据库操作  
+```sql
+start transaction;
+
+update guapplymoney set 
+contract_no = ?, accept_name = ?, bank = ?, account_no = ?, amount = ?, user_id = ?, 
+bank_status = ?, assurance_status = ?, insurance_status = ?, agriculture_status = ?, 
+input_time = ?, updator = ?, update_time = ?, remark = ?, flag = ? 
+where apply_id = ? 
+
+
+insert into ggauditrecord (
+	audit_id, series_no, audit_code, audit_status, content, audit_time, flag, remark
+) values (?, ?, ?, ?, ?, ?, ?, ?) 
+
+commit;
+```
+------------------
 ## 借款申请列表
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`/sys/bank/apply`
+* 请求地址：`127.0.0.1:8080/app/bank/apply`
 * 请求方式：`GET`
 * 请求类型：``
 * 响应类型：`R`
@@ -565,37 +666,7 @@ rate = ?, interest = ?, bank_id = ?, product_id = ?, user_id = ?,
 
 #### 响应参数
 ```json
-{
-    "msg": "success",
-    "date": {
-        "total": 2,
-        "list": [
-            {
-                "borrowId": "15169506077438136950",
-                "userName": "贵州省马大姐食品股份有限公司",
-                "productName": null,
-                "startDate": "2018-01-26 15:09:49",
-                "borrowAmount": null,
-                "status": "1",
-                "borrowArrange": "12"
-            },
-            {
-                "borrowId": "15169506219702616984",
-                "userName": "贵州省马大姐食品股份有限公司",
-                "productName": null,
-                "startDate": "2018-01-26 15:10:03",
-                "borrowAmount": null,
-                "status": "1",
-                "borrowArrange": "12"
-            }
-        ],
-        "pageNum": 1,
-        "pageSize": 10,
-        "pages": 1,
-        "size": 2
-    },
-    "code": 200
-}
+
 ```
 
 ### 数据库操作  
@@ -619,12 +690,12 @@ contract_no is null
         and user_id in (select user_id from gguser where user_name like concat('%',#{borrowName},'%'));
 commit;
 ```
------------------
+------------------
 ## 借款合同列表
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`127.0.0.1:8080/sys/bank/loans`
+* 请求地址：`127.0.0.1:8080/app/bank/apply`
 * 请求方式：`GET`
 * 请求类型：``
 * 响应类型：`R`
@@ -664,69 +735,7 @@ commit;
 
 #### 响应参数
 ```json
-{
-    "msg": "success",
-    "date": {
-        "total": 5,
-        "list": [
-            {
-                "borrowId": "15162430025263970647",
-                "contractNo": "1231654645",
-                "userName": "贵州省马大姐食品股份有限公司",
-                "productName": "王者理财方案",
-                "borrowAmount": null,
-                "startDate": "2018-01-18 10:35:27",
-                "endDate": "2018-01-18 10:35:27",
-                "status": "4"
-            },
-            {
-                "borrowId": "15162432129967426182",
-                "contractNo": "1231654645",
-                "userName": "贵州省马大姐食品股份有限公司",
-                "productName": "王者理财方案",
-                "borrowAmount": null,
-                "startDate": "2018-01-18 10:38:58",
-                "endDate": "2018-01-18 10:38:58",
-                "status": "4"
-            },
-            {
-                "borrowId": "15162432129967426183",
-                "contractNo": "1231654645",
-                "userName": "贵州省马大姐食品股份有限公司",
-                "productName": "王者理财方案",
-                "borrowAmount": null,
-                "startDate": "2018-01-18 10:38:58",
-                "endDate": "2018-01-18 10:38:58",
-                "status": "4"
-            },
-            {
-                "borrowId": "15168634611042822827",
-                "contractNo": "1231654645",
-                "userName": "贵州省马大姐食品股份有限公司",
-                "productName": null,
-                "borrowAmount": null,
-                "startDate": "2018-01-25 14:57:24",
-                "endDate": "2018-01-25 14:57:24",
-                "status": "2"
-            },
-            {
-                "borrowId": "15169479458845338537",
-                "contractNo": "1231654645",
-                "userName": "贵州省马大姐食品股份有限公司",
-                "productName": null,
-                "borrowAmount": null,
-                "startDate": "2018-01-26 14:25:27",
-                "endDate": "2018-01-26 14:25:27",
-                "status": "2"
-            }
-        ],
-        "pageNum": 1,
-        "pageSize": 10,
-        "pages": 1,
-        "size": 5
-    },
-    "code": 200
-}
+
 ```
 
 ### 数据库操作  
@@ -748,322 +757,5 @@ where
 	AND status = #{status}
 	AND status in ('2', '3', '4', '5')
 	and user_id in (select user_id from gguser where user_name like concat('%',#{borrowName},'%'));
-```
-------------------
-## 根据id查询借款详情
-
-#### 基本信息
-* 请求类型：`HTTP`
-* 请求地址：`/sys/bank/{borrowId}/borrow`
-* 请求方式：`GET`
-* 请求类型：`String`
-* 响应类型：`R`
-
-### 接口描述
-
-
-#### 请求数据
-|参数名称|是否必填|类型|长度|描述|默认值|备注|
-|:----:|:----:|:----:|:----:|:---:|:----:|:---:|
-|token|√|String|| 登录验证|||
-|borrowId|√|String||查询id|
-
-#### 响应数据
-|参数名称|是否必填|描述|默认值|  
-|:----:|:----:|:----:|:----:|  
-|bankId| √ | 银行||
-|productId| √ | 产品||
-|rate| √ | 利率||
-|borrowAmount| √ | 借款金额||
-|remark|  | 备注||
-|letter|  | 推荐函||
-|policyMain|  | 保险||
-|assurance|  | 担保||
-|managerCards|  | 经营证照||
-|contracts|  | 购销合同||
-|financials|  | 财务报表||
-|invoices|  | 发票列表||
-|assets|  | 资产列表||
-|images|  | 其他资料||
-|cardId|| 资证id||
-|cardName|| 证件名称||
-|companyName|| 公司名称||
-|cardType|| 类型||
-|cardNo|| 证件编号||
-|endDate|| 证件有效期||
-|remark|| 备注||
-|contractId|| 编码||
-|partnerId|| 合作对象||
-|contractType|| 合作关系||
-|startDate|| 合作开始日期||
-|endDate|| 开做结束日期||
-|contractAmount|| 合同金额||
-|linkType|| 联系电话||
-|id|| 报表id||
-|chartTime|| 年,月||
-|remark|| 备注||
-|inputTime|| 创建时间||
-|contractId||编号||
-|invoiceCode||发票代码||
-|invoiceNo||发票号码||
-|invoiceAmount||发票金额||
-|createDate||开票日期||
-|invoiceHeader||发票抬头||
-|remark||备注||||
-|assetId|| 编号||
-|assetHolder|| 产权人||
-|assetType|| 产权关系||
-|assetNature||  产权性质||
-|province||省||
-|city||市||
-|county||区||
-|town||城镇||
-|village||街道||
-|address||详细地址||
-|area||  面积||
-|futurePrice|| 预估值||
-|mortgageAmount|| 抵押金额||
-|netWorth|| 净值||
-
-### 实例
-#### 请求实体
-```json
-```
-#### 响应参数
-```json
-{
-    "msg": "success",
-    "code": 200,
-    "data": {
-        "bankId": "15161843217798364881",
-        "productId": null,
-        "rate": 1.5,
-        "borrowAmount": null,
-        "remark": "asdfadfasd",
-        "letter": {
-            "letterId": "201801200001",
-            "referrer": "nongwei",
-            "accepter": "123123",
-            "startDate": "2018-01-20 00:00:00",
-            "endDate": "2018-02-20 00:00:00",
-            "isTakeEffect": "无效"
-        },
-        "policyMain": {
-            "businessNo": "15155516905141164280",
-            "riskCode": "1234",
-            "insureAppli": "15264311168",
-            "insuredCode": "c0a86a52c2ae44b4979a5ca8",
-            "amount": 2000000,
-            "status": "5"
-        },
-        "assurance": {
-            "assureId": "654780",
-            "productType": "4567",
-            "userName": "15264311168",
-            "assureCompany": "456456",
-            "assureAmount": 20000,
-            "status": "4"
-        },
-        "managerCards": [
-            {
-                "cardId": "15160118706999703465",
-                "cardName": "营业执照",
-                "companyName": "贵州省马大姐食品股份有限公司",
-                "cardType": "01",
-                "cardNo": "1234587",
-                "endDate": "2017-12-31 00:00:00",
-                "remark": "备注"
-            }
-        ],
-        "contracts": [
-            {
-                "contractId": "15160133073853215176",
-                "partnerId": "撒打算",
-                "contractType": "供应商",
-                "startDate": null,
-                "endDate": null,
-                "contractAmount": null,
-                "linkType": ""
-            }
-        ],
-        "financials": [
-            {
-                "id": "",
-                "chartTime": "",
-                "remark": "",
-                "inputTime": ""
-            },
-            {
-                "id": "",
-                "chartTime": "",
-                "remark": "",
-                "inputTime": ""
-            }
-        ],
-        "invoices": [
-            {
-                "contractId":"", 
-                "invoiceCode":"", 
-                "invoiceNo":"", 
-                "invoiceAmount":"", 
-                "createDate":"", 
-                "invoiceHeader":"", 
-                "remark":""
-            },
-            {
-                "contractId":"", 
-                "invoiceCode":"", 
-                "invoiceNo":"", 
-                "invoiceAmount":"", 
-                "createDate":"", 
-                "invoiceHeader":"", 
-                "remark":""
-            }
-        
-        ],
-        "assets": [
-            {
-                "assetId": "",
-                "assetHolder": "",
-                "assetType": "",
-                "assetNature": "",
-                "province": "",
-                "city": "",
-                "county": "",
-                "town": "",
-                "village": "",
-                "address": "",
-                "area": "",
-                "futurePrice": "",
-                "mortgageAmount": "",
-                "netWorth": ""
-            },
-            {
-                "assetId": "",
-                "assetHolder": "",
-                "assetType": "",
-                "assetNature": "",
-                "province": "",
-                "city": "",
-                "county": "",
-                "town": "",
-                "village": "",
-                "address": "",
-                "area": "",
-                "futurePrice": "",
-                "mortgageAmount": "",
-                "netWorth": ""
-            }
-        ],
-        "images": {
-            "identity": "789795"
-        }
-    }
-}
-```
-
-### 数据库操作  
-```sql
-start transaction;
-select 
-	borrow_id
-	contract_no,
-	borrow_amount,
-	rate,
-	bank_id,
-	product_id,
-	user_id,
-	borrow_arrange,
-	create_time,
-	start_date,
-	end_date,
-	letter_id,
-	policy_id,
-	assurance_id,
-	contract_img,
-	cert_id,
-	status,
-	record_address,
-	updator,
-	update_time,
-	remark,
-	flag 
-from 
-	guborrowmoney 
-where borrow_id = '1234567899867564'
-
-select * from ggmanagercard where id in ("132312312","123123124236", "1234543534");  -- 资政表
-select * from ggcontract where id in ("132312312","123123124236", "1234543534");  -- 合同
-select * from ggfinancial where id in ("132312312","123123124236", "1234543534");  -- 财务报表
-select * from gginvoice where id in ("132312312","123123124236", "1234543534");  -- 发票
-select * from ggasset where id in ("132312312","123123124236", "1234543534");  -- 资产
-
-commit;
-```
-
-
-## 待放款列表
-
-#### 基本信息
-* 请求类型：`HTTP`
-* 请求地址：`/app/bank/finish`
-* 请求方式：`GET`
-* 请求类型：`int`
-* 响应类型：`R`
-
-### 接口描述
-
-
-#### 请求数据
-
-|参数名称|是否必填|类型|长度|描述|默认值|备注|
-|:----:|:----:|:----:|:----:|:---:|:---:|:---:|
-|token|√|String||验证登录详情||
-|pageNum||Integer||分页开始位置|0|整数|
-|pageSize||Integer||每页显示数量|10|整数|
-
-#### 响应数据
-|参数名称|是否必填|描述|说明| 
-|:----:|:----:|:----:|:----:|  
-|borrowId| | 申请编号|
-|contractNo| | 借款合同号|
-|userName| | 借款人代码|
-|productName| | 金融产品|
-|borrowAmount| | 借款金额|
-|startDate| ||
-|endDate| ||
-|status| | 0:草稿,1:待审核,2:审核不通过,3:审核通过并生成合同|
-
-### 实例
-#### 请求实体
-
-#### 响应参数
-```json
-
-```
-
-### 数据库操作  
-```sql
-{
-    "msg": "success",
-    "date": {
-        "total": 0,
-        "list": [
-            "borrowId": "", 
-            "contractNo": "", 
-            "userName": "", 
-            "productName": "", 
-            "borrowAmount": "", 
-            "startDate": "", 
-            "endDate": "", 
-            "status": ""
-        ],
-        "pageNum": 0,
-        "pageSize": 10,
-        "pages": 0,
-        "size": 0
-    },
-    "code": 200
-}
 ```
 ------------------
