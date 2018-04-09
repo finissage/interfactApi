@@ -638,7 +638,7 @@ assurance_id
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`http://127.0.0.1:8080/app/guborrowmoneys/{borrowId}/compact`
+* 请求地址：`/app/guborrowmoneys/{borrowId}/compact`
 * 请求方式：`PUT`
 * 请求类型：`JSON`
 * 响应类型：`R`

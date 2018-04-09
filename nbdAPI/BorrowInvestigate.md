@@ -10,12 +10,13 @@
 #### [综合查询借款申请列表](#借款申请列表)
 #### [综合查询借款合同列表](#借款合同列表)
 #### [查看借款详情](#根据id查询借款详情)
+#### [查询合同详情](#根据id查询借款合同详情)
 
 ## 尽调/审贷列表
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`/sys/guborrowmoneys/{type}/investigate`
+* 请求地址：`/sys/bank/{type}/investigate`
 * 请求方式：`GET`
 * 请求类型：`int`
 * 响应类型：`R`
@@ -95,7 +96,7 @@ and user_id in (select user_id from gguser where user_name like concat('%', 'use
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`/sys/app/guduediligence/{borrowId}`
+* 请求地址：`/sys/bank/{borrowId}/guduediligence`
 * 请求方式：`POST`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -243,7 +244,7 @@ commit;
 
 #### 基本信息
 * 请求类型：`HTTP`
-* 请求地址：`/sys/app/bank/{borrowId}/audit`
+* 请求地址：`/sys/bank/{borrowId}/audit`
 * 请求方式：`PUT`
 * 请求类型：`JSON`
 * 响应类型：`R`
@@ -1039,7 +1040,110 @@ commit;
 
 #### 响应参数
 ```json
-
+{
+    "msg": "success",
+    "code": 201,
+    "data": {
+        "total": 7,
+        "list": [
+            {
+                "borrowId": "15223027537242735477",
+                "contractNo": "123123123",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": null,
+                "borrowAmount": "123123.00",
+                "startDate": "2018-04-07 08:00:00",
+                "endDate": "2018-04-07 08:00:00",
+                "status": "5",
+                "bankStatus": "1",
+                "assuranceStatus": null,
+                "agricultureStatus": null
+            },
+            {
+                "borrowId": "15214243013584602537",
+                "contractNo": "1231322131",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": "王者理财方案",
+                "borrowAmount": "18.00",
+                "startDate": "2018-04-06 08:00:00",
+                "endDate": "2018-04-13 08:00:00",
+                "status": "5",
+                "bankStatus": "1",
+                "assuranceStatus": null,
+                "agricultureStatus": null
+            },
+            {
+                "borrowId": "15169508116357539179",
+                "contractNo": "3312312312",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": null,
+                "borrowAmount": "500000.00",
+                "startDate": "2018-01-26 15:13:13",
+                "endDate": "2018-01-26 15:13:13",
+                "status": "5",
+                "bankStatus": "3",
+                "assuranceStatus": "2",
+                "agricultureStatus": "3"
+            },
+            {
+                "borrowId": "15169479458845338537",
+                "contractNo": "3612312312",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": null,
+                "borrowAmount": "6000000.00",
+                "startDate": "2018-01-26 14:25:27",
+                "endDate": "2018-01-26 14:25:27",
+                "status": "5",
+                "bankStatus": "3",
+                "assuranceStatus": "2",
+                "agricultureStatus": null
+            },
+            {
+                "borrowId": "15168634611042822827",
+                "contractNo": "3512312312",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": null,
+                "borrowAmount": "6000000.00",
+                "startDate": "2018-01-25 14:57:24",
+                "endDate": "2018-01-25 14:57:24",
+                "status": "5",
+                "bankStatus": "2",
+                "assuranceStatus": "1",
+                "agricultureStatus": "1"
+            },
+            {
+                "borrowId": "15162430025263970647",
+                "contractNo": "1231654645",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": "王者理财方案",
+                "borrowAmount": "15.00",
+                "startDate": "2018-01-18 10:35:27",
+                "endDate": "2018-01-18 10:35:27",
+                "status": "5",
+                "bankStatus": "3",
+                "assuranceStatus": null,
+                "agricultureStatus": null
+            },
+            {
+                "borrowId": "15157283274969297373",
+                "contractNo": "3112312312",
+                "userName": "贵州省马大姐食品股份有限公司",
+                "productName": "王者理财方案",
+                "borrowAmount": "10.00",
+                "startDate": "2018-01-18 10:38:58",
+                "endDate": "2018-01-18 10:38:58",
+                "status": "5",
+                "bankStatus": "1",
+                "assuranceStatus": null,
+                "agricultureStatus": null
+            }
+        ],
+        "pageNum": 1,
+        "pageSize": 10,
+        "pages": 1,
+        "size": 7
+    }
+}
 ```
 
 ### 数据库操作  
@@ -1066,4 +1170,134 @@ commit;
     "code": 200
 }
 ```
-------------------
+-----------------------
+
+## 根据id查询借款合同详情
+
+#### 基本信息
+* 请求协议：`HTTP`
+* 请求地址：`/sys/bank/{borrowId}/compact`
+* 请求方式：`GET`
+* 请求类型：`String`
+* 响应类型：`R`
+
+### 接口描述
+根据企业id 查询借款合同
+并加载相关：
+- 收款信息
+- 推荐函
+- 保险
+- 担保
+
+#### 请求数据
+
+|参数名称|是否必填|类型|长度|描述|默认值|备注|
+|:----:|:----:|:----:|:----:|:---:|:----:|:---:|
+|token|√|String||验证登录详情|
+|borrowId|√|String|32|申请借款id|
+
+#### 响应数据
+|参数名称|是否必填|描述|默认值|  
+|:----:|:----:|:----:|:----:|  
+| contractNo| √ | 借款合同号 ||
+| borrowId| √   | 申请编号  ||
+| borrowAmount| √   | 借款金额  ||
+| rate| √   | 利率    ||
+| interest| √   | 借款利息  ||
+| borrowArrange| √  | 借款期限  ||
+| status| √ | 状态    ||
+| createTime| √ | 创建时间  ||
+| contractImg| √    | 合同图片  ||
+| payType| √ | 还款方式 ||
+| remark|   | 备注    ||
+| acceptName| √ | 收款人   ||
+| bank| √   | 开户银行  ||
+| accountNo| √  | 账号    ||
+| amount| √ | 放款金额  ||
+| letterId| √   | 推荐函   ||
+| policyId| √   | 保险    ||
+| proposalNo| √ | 保单号   ||
+| acceptanceStartTime| √    | 承保开始时间    ||
+| acceptanceEndTime| √  | 承保结束时间    ||
+| assuranceId| √    | 担保    ||
+| notifierType | | 通知人类型 ||
+| payImg | | 放款凭证 ||
+| createTime | | 通知时间 ||
+
+### 实例
+#### 请求实体
+```json
+{
+
+}
+```
+#### 响应参数
+```json
+{
+    "msg": "success",
+    "code": 200,
+    "data": {
+        "contractNo": "123",
+        "borrowId": "15154979522381392010",
+        "borrowAmount": 500000,
+        "rate": 2.17,
+        "interest": 1085000,
+        "borrowArrange": 11,
+        "status": "0",
+        "createTime": "2018-01-11 16:01:35",
+        "contractImg": null,
+        "payType": "15154930825584651576",
+        "remark": "asdfadfasd",
+        "acceptName": "15154930825605853160",
+        "bank": null,
+        "accountNo": null,
+        "amount": null,
+        "letterId": "15154930825603998372",
+        "policyId": "15154930825604840510",
+        "proposalNo": null,
+        "acceptanceStartTime": null,
+        "acceptanceEndTime": null,
+        "assuranceId": "15154930825605853160",
+        "payNotices": [
+            {
+                "notifierType": "",
+                "payImg": "",
+                "createTime": ""
+            },
+            {
+                "notifierType": "",
+                "payImg": "",
+                "createTime": ""
+            }
+        ]
+    }
+}
+```
+
+### 数据库操作  
+```sql
+select 
+    contract_no as contractNo
+    borrow_id as borrowId
+    borrow_amount as borrowAmount
+    rate as rate
+    FORMAT((borrow_amount*rate),2) as interest 
+    borrow_arrange as borrowArrange
+    status
+    create_time as createTime
+    contract_img as contractImg
+    (select pay_type from ggproductdetail where product_id = product_id) as payType
+    letter_id as letterId
+    policy_id as policyId
+    assurance_id as assuranceId
+    remark
+from guborrowmoney
+where borrow_id = 'borrowId'  
+
+-- 根据 查询响应数据拼接
+letter_id
+policy_id
+assurance_id 
+```
+------------------------
+
